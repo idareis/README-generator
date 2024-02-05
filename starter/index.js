@@ -57,13 +57,13 @@ function writeToFile(fileName, data) {
 // function to initialize program
 function init() {
     inquirer.createPromptModule(questions)
-        .then((answers) => {
-            const fileName = "README.md";
-            const generatedREADME = generateMarkdown(answers);
-            writeToFile(fileName, generatedREADME);
-            console.log(`${fileName} successfully generated!`);
-        })
-        .catch((err) => console.error(err));
+    .then((answers) => {
+        const fileName = "README.md";
+        const generatedREADME = generateMarkdown(answers);
+        writeToFile(fileName, generatedREADME);
+        console.log(`${fileName} successfully generated at ${path.resolve(__dirname, fileName)}!`);
+    })
+    .catch((err) => console.error(err));
 }
 
 // function call to initialize program
