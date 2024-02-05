@@ -50,18 +50,24 @@ const questions = [
 
 // function to write README file
 function writeToFile(fileName, data) {
-    const outputPath = path.resolve(__dirname, fileName);
+    const outputDir = path.resolve(__dirname, "../output");
+    const outputPath = path.join(outputDir, fileName);
+
+    if(!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir);
+    }
+
     fs.writeFileSync(outputPath, data);
 }
 
 // function to initialize program
 function init() {
-    inquirer.createPromptModule(questions)
+    inquirer.prompt(questions)
     .then((answers) => {
         const fileName = "README.md";
         const generatedREADME = generateMarkdown(answers);
         writeToFile(fileName, generatedREADME);
-        console.log(`${fileName} successfully generated at ${path.resolve(__dirname, fileName)}!`);
+        console.log(`${fileName} successfully generated at ${path.resolve(__dirname, "../output")}!`);
     })
     .catch((err) => console.error(err));
 }
